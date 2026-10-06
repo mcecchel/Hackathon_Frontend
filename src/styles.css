@@ -1,0 +1,49 @@
+@import "tailwindcss";
+@import "@fontsource/atkinson-hyperlegible-next/400.css";
+@import "@fontsource/atkinson-hyperlegible-next/600.css";
+@import "@fontsource/atkinson-hyperlegible-next/700.css";
+
+/* Panoramax-inspired tokens: accessible typography, green accent, teal surfaces. */
+@theme {
+  --color-ink: #102b2b;
+  --color-surface: #112d2d;
+  --color-surface-2: #173d3a;
+  --color-line: rgba(255, 255, 255, 0.09);
+  --color-brand: #8ee6b2;
+  --color-brand-2: #f2c879;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+  /* The layered background gives the dashboard depth without competing with the photo. */
+  background:
+    radial-gradient(circle at top left, rgba(142, 230, 178, 0.14), transparent 34%),
+    radial-gradient(circle at top right, rgba(242, 200, 121, 0.1), transparent 25%),
+    linear-gradient(180deg, #081616 0%, #102626 48%, #163634 100%);
+  color: #eff6ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.glass {
+  /* Shared surface treatment for the app shell and main work panels. */
+  background: rgba(17, 45, 45, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+}
+
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
