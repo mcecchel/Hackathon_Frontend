@@ -3,47 +3,50 @@
 @import "@fontsource/atkinson-hyperlegible-next/600.css";
 @import "@fontsource/atkinson-hyperlegible-next/700.css";
 
-/* Panoramax-inspired tokens: accessible typography, green accent, teal surfaces. */
+/* Panoramax-inspired tokens: a clear map-like canvas with deep green work surfaces. */
 @theme {
-  --color-ink: #102b2b;
-  --color-surface: #112d2d;
-  --color-surface-2: #173d3a;
-  --color-line: rgba(255, 255, 255, 0.09);
-  --color-brand: #8ee6b2;
-  --color-brand-2: #f2c879;
+	--color-ink: #173b36;
+	--color-surface: #0c4b43;
+	--color-surface-2: #126257;
+	--color-line: #d7e4dc;
+	--color-brand: #b7e36c;
+	--color-brand-2: #d8a94e;
 }
 
 html,
 body,
 #root {
-  min-height: 100%;
+	min-height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
-  /* The layered background gives the dashboard depth without competing with the photo. */
-  background:
-    radial-gradient(circle at top left, rgba(142, 230, 178, 0.14), transparent 34%),
-    radial-gradient(circle at top right, rgba(242, 200, 121, 0.1), transparent 25%),
-    linear-gradient(180deg, #081616 0%, #102626 48%, #163634 100%);
-  color: #eff6ff;
+	margin: 0;
+	font-family: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+	background: #eef4ef;
+	color: #173b36;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+button:focus-visible,
+label[role="button"]:focus-visible,
+summary:focus-visible,
+input:focus-visible {
+	outline: 2px solid var(--color-brand);
+	outline-offset: 3px;
 }
 
 .glass {
-  /* Shared surface treatment for the app shell and main work panels. */
-  background: rgba(17, 45, 45, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
+	/* Solid work surfaces keep the interface legible and map-tool-like. */
+	background: #0c4b43;
+	border: 1px solid #0a4039;
 }
 
 .grid-overlay {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+	background-image:
+		linear-gradient(rgba(12, 75, 67, 0.06) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(12, 75, 67, 0.06) 1px, transparent 1px);
+	background-size: 40px 40px;
 }
