@@ -21,7 +21,11 @@ Frontend Vite + React + TypeScript + Tailwind per testare foto Panoramax prima d
 
 - Il progetto usa Tailwind CSS v4 tramite `@tailwindcss/vite`.
 - La tipografia usa Atkinson Hyperlegible Next, il font incluso nel web-viewer ufficiale Panoramax.
-- La palette riprende il linguaggio Panoramax: verde come accento, neutri teal scuri e giallo caldo per segnali secondari.
+- La palette segue il brand Panoramax ed è definita come token `@theme` in `src/styles.css` (Tailwind v4 non usa `tailwind.config.js`):
+  - **Panoramax Blue** `#1F419B` (`pnx-blue`): colore primario per header, bottoni principali e testi importanti.
+  - **Panoramax Purple** `#A92FB4` (`pnx-purple`): stati attivi, focus ring e accenti visivi.
+  - **Neutri**: scala `slate` di Tailwind.
+  - **Semantici** (`status-success`, `status-warning`, `status-error`): solo per l'esito dei test del motore C++.
 - La preview dell'immagine locale usa un object URL con cleanup automatico.
 - `VITE_API_BASE_URL` definisce l'endpoint del backend che riceverà il file e il JSON di analisi.
 

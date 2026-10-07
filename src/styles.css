@@ -3,14 +3,114 @@
 @import "@fontsource/atkinson-hyperlegible-next/600.css";
 @import "@fontsource/atkinson-hyperlegible-next/700.css";
 
-/* Panoramax-inspired tokens: a clear map-like canvas with deep green work surfaces. */
+/*
+ * Panoramax brand tokens.
+ * - Blue: primary (header, main buttons, important text).
+ * - Purple: active states, focus rings, visual accents.
+ * - Neutrals: Tailwind's built-in slate scale.
+ * - Status: C++ test outcome feedback only.
+ */
 @theme {
-	--color-ink: #173b36;
-	--color-surface: #0c4b43;
-	--color-surface-2: #126257;
-	--color-line: #d7e4dc;
-	--color-brand: #b7e36c;
-	--color-brand-2: #d8a94e;
+	--font-sans: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
+
+	--color-pnx-blue: #1f419b;
+	--color-pnx-blue-hover: #1a3682;
+	--color-pnx-blue-dark: #152c6b;
+	--color-pnx-blue-light: #eef2fb;
+
+	--color-pnx-purple: #a92fb4;
+	--color-pnx-purple-hover: #8c2496;
+	--color-pnx-purple-light: #fdf4ff;
+
+	--shadow-pnx-soft: 0 8px 24px -16px rgb(31 65 155 / 0.35);
+	--shadow-pnx-glow: 0 8px 20px -12px rgb(169 47 180 / 0.6);
+
+	/* Motion: content rises in when it appears, the title's horizon line draws in, success pops. */
+	--animate-rise: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+	--animate-underline: underline 0.9s 0.3s cubic-bezier(0.3, 0.7, 0.2, 1) both;
+	--animate-pop: pop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+
+	@keyframes rise {
+		from {
+			opacity: 0;
+			transform: translateY(10px);
+		}
+	}
+	@keyframes underline {
+		from {
+			background-size: 0% 4px;
+		}
+	}
+	@keyframes pop {
+		from {
+			opacity: 0;
+			transform: scale(0.6);
+		}
+	}
+
+	--color-status-success: #10b981;
+	--color-status-success-hover: #059669;
+	--color-status-error: #ef4444;
+	--color-status-error-hover: #dc2626;
+	--color-status-warning: #f59e0b;
+	/* Darker shades for text and solid badges on light backgrounds (WCAG AA). */
+	--color-status-success-strong: #047857;
+	--color-status-error-strong: #b91c1c;
+	--color-status-warning-strong: #b45309;
+
+	/* Defect bounding boxes: distinct hues so each defect type stays recognizable. */
+	--color-bbox-blur: #f43f5e;
+	--color-bbox-dark: #0ea5e9;
+	--color-bbox-finger: #eab308;
+}
+
+/*
+ * Brand gradient ("Orizzonte" direction): only ever a thin blue→purple line —
+ * under the header, under the home title's key word, in the progress bar,
+ * and around interactive tiles on hover.
+ */
+@utility bg-pnx-line {
+	background-image: linear-gradient(90deg, var(--color-pnx-blue), var(--color-pnx-purple));
+}
+
+/* Horizon line under a word of a heading. */
+@utility pnx-underline {
+	background-image: linear-gradient(90deg, var(--color-pnx-blue), var(--color-pnx-purple));
+	background-repeat: no-repeat;
+	background-position: 0 100%;
+	background-size: 100% 4px;
+	padding-bottom: 4px;
+}
+
+/* Interactive tiles: on hover or keyboard focus the border lights up with the brand gradient. */
+@utility pnx-hover-border {
+	position: relative;
+
+	&::before {
+		content: "";
+		position: absolute;
+		inset: -1px;
+		z-index: 1;
+		border-radius: inherit;
+		padding: 2px;
+		pointer-events: none;
+		background-image: linear-gradient(120deg, var(--color-pnx-blue), var(--color-pnx-purple));
+		-webkit-mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		-webkit-mask-composite: xor;
+		mask:
+			linear-gradient(#000 0 0) content-box,
+			linear-gradient(#000 0 0);
+		mask-composite: exclude;
+		opacity: 0;
+		transition: opacity 0.25s ease;
+	}
+
+	&:hover::before,
+	&:focus-visible::before {
+		opacity: 1;
+	}
 }
 
 html,
@@ -21,32 +121,25 @@ body,
 
 body {
 	margin: 0;
-	font-family: "Atkinson Hyperlegible Next", ui-sans-serif, system-ui, sans-serif;
-	background: #eef4ef;
-	color: #173b36;
+	font-family: var(--font-sans);
+	background: var(--color-slate-50);
+	color: var(--color-slate-800);
 }
 
 * {
 	box-sizing: border-box;
 }
 
-button:focus-visible,
-label[role="button"]:focus-visible,
-summary:focus-visible,
-input:focus-visible {
-	outline: 2px solid var(--color-brand);
-	outline-offset: 3px;
-}
-
-.glass {
-	/* Solid work surfaces keep the interface legible and map-tool-like. */
-	background: #0c4b43;
-	border: 1px solid #0a4039;
-}
-
-.grid-overlay {
-	background-image:
-		linear-gradient(rgba(12, 75, 67, 0.06) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(12, 75, 67, 0.06) 1px, transparent 1px);
-	background-size: 40px 40px;
+/* In the base layer so components can override the ring color where purple lacks contrast. */
+@layer base {
+	a:focus-visible,
+	button:focus-visible,
+	label[role="button"]:focus-visible,
+	summary:focus-visible,
+	input:focus-visible,
+	select:focus-visible,
+	textarea:focus-visible {
+		outline: 2px solid var(--color-pnx-purple);
+		outline-offset: 3px;
+	}
 }
